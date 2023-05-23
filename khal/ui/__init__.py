@@ -848,12 +848,7 @@ class EventColumn(urwid.WidgetWrap):
         # which are also copied. If the events' summary is edited it will show
         # up on disk but not be displayed in khal
         event = self.focus_event.event.duplicate()
-        try:
-            self.pane.collection.new(event)
-        except ReadOnlyCalendarError:
-            event.calendar = self.pane.collection.default_calendar_name or \
-                self.pane.collection.writable_names[0]
-            self.edit(event, always_save=True)
+        self.edit(event, always_save=True)
         start_date, end_date = event.start_local, event.end_local
         if isinstance(start_date, dt.datetime):
             start_date = start_date.date()
